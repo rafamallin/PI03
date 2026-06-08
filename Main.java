@@ -64,7 +64,8 @@ public class Main {
 
         //Var para distância euclidiana
         double[] distancias = new double[4];
-        
+    
+
         //Loop da interface
         boolean flag = true;
 
