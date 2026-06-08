@@ -1,90 +1,75 @@
 import java.util.Scanner;
+import java.util.Random;
 
+import src.Imovel;
 import src.Usuario;
 
 public class Main {
     public static void main(String[] args){
-        Usuario usuario = new Usuario();
-        Usuario[] usuarios = new Usuario[4];
-        for (int i = 0; i < 4; i++) {
-            usuarios[i] = new Usuario();
-        }
-        String[] perguntas = new String[10];
-        double[] distancias = new double[4];
-        boolean flag = true;
         Scanner scanner = new Scanner(System.in);
 
-        usuarios[0].setNome("Isabela Costa Ribeiro");
-        usuarios[1].setNome("Lucas Andrade Ferreira");
-        usuarios[2].setNome("Felipe Martins Souza");
-        usuarios[3].setNome("Camila Rocha Alves");
-
-        for (int i = 0; i < 10; i++){
-            for (int j = 0; j < 4; j++){
-                usuarios[j].setProblema(i, usuario.gerarNume());
-            }
-        }
-
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 10; j++){
-                if (usuarios[i].getProblema(j) == 1){
-                    if (j == 0){
-                        usuarios[i].setProblemaNome(j, "Ansiedade Generalizada (TAG)");
-                    }
-                    if (j == 1){
-                        usuarios[i].setProblemaNome(j, "Depressão (Transtorno Depressivo Maior)");
-                    }
-                    if (j == 2){
-                        usuarios[i].setProblemaNome(j, "Fobias Específicas e Ansiedade Social");
-                    }
-                    if (j == 3){
-                        usuarios[i].setProblemaNome(j, "Transtorno de Déficit de Atenção e Hiperatividade (TDAH)");
-                    }
-                    if (j == 4){
-                        usuarios[i].setProblemaNome(j, "Transtorno de Pânico");
-                    }
-                    if (j == 5){
-                        usuarios[i].setProblemaNome(j, "Estresse Pós-Traumático (TEPT)");
-                    }
-                    if (j == 6){
-                        usuarios[i].setProblemaNome(j, "Transtorno Bipolar");
-                    }
-                    if (j == 7){
-                        usuarios[i].setProblemaNome(j, "Transtorno Obsessivo-Compulsivo (TOC)");
-                    }
-                    if (j == 8){
-                        usuarios[i].setProblemaNome(j, "Transtorno de Personalidade Borderline (TPB)");
-                    }
-                    if (j == 9){
-                        usuarios[i].setProblemaNome(j, "Esquizofrenia e Psicoses");
-                    }
-                }
-            }
-        }
-
+        /*=======
+        CABECARIO
+        ========*/
         System.out.print("\033[H\033[2J");
-        System.out.printf("Bem vindo ao App DaUmHelpAqui!\n");
+        System.out.printf("Bem vindo ao App!\n");
         System.out.printf("Você terá de responder uma série de perguntas antes de prosseguir...\n");
-        System.out.printf("Por favor, responda 0 para não e 1 para sim.\n\n");
 
-        perguntas[0] = "Você sofre de Transtorno de Ansiedade Generalizada (TAG)?";
-        perguntas[1] = "Você sofre de Depressão (Transtorno Depressivo Maior)?";
-        perguntas[2] = "Você sofre de Fobias Específicas e Ansiedade Social?";
-        perguntas[3] = "Você sofre de Transtorno de Déficit de Atenção e Hiperatividade (TDAH)?";
-        perguntas[4] = "Você sofre de Transtorno de Pânico?";
-        perguntas[5] = "Você sofre de Transtorno de Estresse Pós-Traumático (TEPT)?";
-        perguntas[6] = "Você sofre de Transtorno Bipolar?";
-        perguntas[7] = "Você sofre de Transtorno Obsessivo-Compulsivo (TOC)?";
-        perguntas[8] = "Você sofre de Transtorno de Personalidade Borderline (TPB)?";
-        perguntas[9] = "Você sofre de Esquizofrenia e Psicoses?";
+        /*============================
+        DEFININDO VALORES DOS USUÁRIOS
+        ============================*/        
+        System.out.printf("Qual o teu nome? ");
+        String user_nome = scanner.nextLine();
 
-        for (int i = 0; i < 10; i++){
-            System.out.printf("%s ", perguntas[i]);
-            usuario.setProblema(i, scanner.nextInt());
+        System.out.printf("Qual a tua preferência de preço? ");
+        double user_preco = scanner.nextDouble();
+
+        System.out.printf("Qual a tua preferência de área? (m²) ");
+        double user_area = scanner.nextDouble();
+
+        System.out.printf("Qual a tua preferência de número de quartos? ");
+        double user_num_quartos = scanner.nextDouble();
+
+        Usuario usuario = new Usuario(user_nome, user_preco, user_area, user_num_quartos);
+
+
+        /*=============
+        CRIANDO IMÓVEIS
+        =============*/
+        Random random = new Random();
+        /*Min e Max*/
+        double min_preco = 100000.00;
+        double max_preco = 3000000.00;
+
+        double min_area = 10.00;
+        double max_area = 1000.00;
+
+        double min_num_quartos = 1.00;
+        double max_num_quartos = 10.00;
+        
+        /*Cria 4 imóveis*/
+        Imovel[] imovel = new Imovel[4];
+        for (int i = 0; i < 4; i++) {
+
+            /*Sortear preco*/
+            double imovel_preco = min_preco + (max_preco - min_preco) * random.nextDouble();
+            
+            /*Sortear area*/
+            double imovel_area = min_area + (max_area - min_area) * random.nextDouble();
+
+            /*Sortear numero de quartos*/
+            double imovel_num_quartos = min_num_quartos + (max_num_quartos - min_num_quartos) * random.nextDouble();
+            imovel[i] = new Imovel(imovel_preco, imovel_area, imovel_num_quartos);
         }
 
+        //Var para distância euclidiana
+        double[] distancias = new double[4];
+        
+        //Loop da interface
+        boolean flag = true;
+
         for (int i = 0; i < 4; i++){
-            distancias[i] = usuario.DistanciaEuclidiana(usuario.getArrayProblemas(), usuarios[i].getArrayProblemas());
+            distancias[i] = usuario.DistanciaEuclidiana(usuario.getArrayProblemas(), imovel[i].getArrayProblemas());
         }
 
         for (int i = 0; i < 4 - 1; i++) {

@@ -3,15 +3,13 @@ package src;
 public class Imovel {
     private double preco;
     private double area;
-    private int num_quartos;
-    private String ldk;
+    private double num_quartos;
 
     //Construtor
-    public Imovel(double preco, double area, int num_quartos, String ldk){
+    public Imovel(double preco, double area, double num_quartos){
         this.preco = preco;
         this.area = area;
         this.num_quartos = num_quartos;
-        this.ldk = ldk;
     }
 
     /*===========
@@ -25,11 +23,7 @@ public class Imovel {
         return area;
     }
 
-    public int getNum_quartos() {
+    public double getNum_quartos() {
         return num_quartos;
-    }
-
-    public String getLdk() {
-        return ldk;
     }
 }

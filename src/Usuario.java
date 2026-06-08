@@ -1,51 +1,53 @@
 package src;
-import java.util.Arrays;
-import java.util.Random;
 import java.lang.Math;
 
 public class Usuario {
     private String nome;
-    private double[] problemas = new double[10];
-    private String[] problemasNomes = new String[10];
+    private double preferencia_preco;
+    private double preferencia_area;
+    private double preferencia_num_quartos;
 
-    public String getNome(){
-        return this.nome;
+    //Construtor
+    public Usuario(String nome, double preco, double area, double quartos){
+        this.nome = nome;
+        this.preferencia_preco = preco;
+        this.preferencia_area = area;
+        this.preferencia_num_quartos = quartos;
     }
 
-    public void setNome(String no){
-        this.nome = no;
+    /*=====================
+        GETTERS E SETTERS
+    =====================*/
+    public double getPreferencia_preco() {
+        return preferencia_preco;
     }
 
-    public double getProblema(int index){
-        return this.problemas[index];
+    public double getPreferencia_area() {
+        return preferencia_area;
     }
 
-    public double[] getArrayProblemas(){
-        return Arrays.copyOf(this.problemas, this.problemas.length);
+    public double getPreferencia_num_quartos() {
+        return preferencia_num_quartos;
     }
 
-    public void setProblema(int index, double valor){
-        this.problemas[index] = valor;
+    public void setPreferencia_preco(double preferencia_preco) {
+        this.preferencia_preco = preferencia_preco;
     }
 
-    public String getProblemaNome(int index){
-        return this.problemasNomes[index];
+    public void setPreferencia_area(double preferencia_area) {
+        this.preferencia_area = preferencia_area;
     }
 
-    public void setProblemaNome(int index, String prob){
-        this.problemasNomes[index] = prob;
+    public void setPreferencia_num_quartos(double preferencia_num_quartos) {
+        this.preferencia_num_quartos = preferencia_num_quartos;
     }
 
+    //Metodos
     public double DistanciaEuclidiana(double[] v1, double[] v2){
         double soma = 0.0;
         for (int i = 0; i < v1.length; i++) {
             soma += Math.pow(v1[i] - v2[i], 2);
         }
         return Math.sqrt(soma);
-    }
-
-    public int gerarNume(){
-        Random random = new Random();
-        return random.nextInt(2);
     }
 }
